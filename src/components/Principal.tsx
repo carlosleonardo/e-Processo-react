@@ -1,6 +1,6 @@
 function Principal() {
     return (
-        <div>
+        <div id="main">
             <title>Tela Principal</title>
             <p className="titulo">Bem-vindo ao e-Processo - Processo Digital</p>
         </div>

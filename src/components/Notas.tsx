@@ -57,7 +57,7 @@ function Notas() {
                                     {escopoNota !== "NM" ? (
                                         <td
                                             className="tr"
-                                            style={{ width: "10%" }}
+                                            style={{ width: "25%" }}
                                         >
                                             <b>Autor</b>
                                         </td>
