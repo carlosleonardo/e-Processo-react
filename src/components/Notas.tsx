@@ -26,6 +26,7 @@ function Notas() {
                                 style={{ width: "100%" }}
                                 rows={4}
                                 cols={41}
+                                maxLength={2000}
                                 placeholder="Digite a nota"
                                 value={nota}
                                 onChange={aoMudarNota}
