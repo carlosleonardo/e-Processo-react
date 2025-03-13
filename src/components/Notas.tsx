@@ -1,10 +1,13 @@
 import { ChangeEvent, useState } from "react";
+import { ModeloNota } from "../modelo/nota";
+import Nota from "./Nota";
 
 function Notas() {
     const [escopoNota, setEscopoNota] = useState("");
     const [mostrarBotoes, setMostrarBotoes] = useState(true);
-    const [nota, setNota] = useState("");
+    const [textoNota, setTextoNota] = useState("");
     const [invalido, setInvalido] = useState(true);
+    const [notas, setNotas] = useState([]);
 
     function aoMudarNota(event: ChangeEvent<HTMLTextAreaElement>) {
         if (event.target.value !== "") {
@@ -12,7 +15,7 @@ function Notas() {
         } else {
             setInvalido(true);
         }
-        setNota(event.target.value);
+        setTextoNota(event.target.value);
     }
 
     return (
@@ -28,7 +31,7 @@ function Notas() {
                                 cols={41}
                                 maxLength={2000}
                                 placeholder="Digite a nota"
-                                value={nota}
+                                value={textoNota}
                                 onChange={aoMudarNota}
                             ></textarea>
                         </td>
@@ -76,6 +79,16 @@ function Notas() {
                                 </tr>
                             </table>
                         </td>
+                    </tr>
+                    <tr>
+                        {notas.map((notaAtual: ModeloNota) => (
+                            <Nota
+                                key={notaAtual.id}
+                                nota={notaAtual}
+                                mostrarBotoes={mostrarBotoes}
+                                escopoNota={escopoNota}
+                            />
+                        ))}
                     </tr>
                 </tbody>
             </table>
