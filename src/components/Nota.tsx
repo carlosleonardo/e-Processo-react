@@ -4,9 +4,10 @@ export interface NotaProps {
     nota: ModeloNota;
     mostrarBotoes: boolean;
     escopoNota: string;
+    excluirNota: (id: number) => void;
 }
 
-function Nota({ nota, mostrarBotoes, escopoNota }: NotaProps) {
+function Nota({ nota, mostrarBotoes, escopoNota, excluirNota }: NotaProps) {
     let painelBotoes = "";
 
     if (mostrarBotoes) {
@@ -16,22 +17,27 @@ function Nota({ nota, mostrarBotoes, escopoNota }: NotaProps) {
                     <button className="btn">Editar</button>
                 </td>
             );
-        }
+        } else painelBotoes = "";
         if (nota.permissaoExclusao) {
             painelBotoes += (
                 <td>
-                    <button className="btn">Excluir</button>
+                    <button
+                        className="btn"
+                        onClick={() => excluirNota(nota.id ?? 0)}
+                    >
+                        Excluir
+                    </button>
                 </td>
             );
         }
-    }
+    } else painelBotoes = "";
     return (
-        <div>
+        <>
             <td>{nota.nota}</td>
             <td>{nota.dataRegistro.toLocaleDateString()}</td>
             {escopoNota !== "NM" ? <td>{nota.autor}</td> : <td></td>}
             {painelBotoes}
-        </div>
+        </>
     );
 }
 export default Nota;
