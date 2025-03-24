@@ -30,7 +30,7 @@ function Notas() {
                 autor: "Carlos Leonardo",
                 dataRegistro: new Date(),
                 permissaoAlteracao: false,
-                permissaoExclusao: false,
+                permissaoExclusao: true,
             },
         });
     }

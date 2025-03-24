@@ -1,3 +1,4 @@
+import { JSX } from "react";
 import { ModeloNota } from "../modelo/nota";
 
 export interface NotaProps {
@@ -7,19 +8,19 @@ export interface NotaProps {
 }
 
 function Nota({ nota, mostrarBotoes, escopoNota }: NotaProps) {
-    let painelBotoes = "";
+    const painelBotoes: JSX.Element[] = [];
 
     if (mostrarBotoes) {
         if (nota.permissaoAlteracao) {
-            painelBotoes += (
-                <td>
+            painelBotoes.push(
+                <td key="editar">
                     <button className="btn">Editar</button>
                 </td>
             );
         }
         if (nota.permissaoExclusao) {
-            painelBotoes += (
-                <td>
+            painelBotoes.push(
+                <td key="excluir">
                     <button className="btn">Excluir</button>
                 </td>
             );
