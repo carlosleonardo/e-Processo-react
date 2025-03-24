@@ -26,12 +26,12 @@ function Nota({ nota, mostrarBotoes, escopoNota }: NotaProps) {
         }
     }
     return (
-        <div>
+        <>
             <td>{nota.nota}</td>
             <td>{nota.dataRegistro.toLocaleDateString()}</td>
             {escopoNota !== "NM" ? <td>{nota.autor}</td> : <td></td>}
             {painelBotoes}
-        </div>
+        </>
     );
 }
 export default Nota;
