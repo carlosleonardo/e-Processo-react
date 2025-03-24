@@ -100,8 +100,11 @@ function Notas() {
                         )}
                     </tr>
 
-                    {notas.map((notaAtual: ModeloNota) => (
-                        <tr key={notaAtual.id}>
+                    {notas.map((notaAtual: ModeloNota, index) => (
+                        <tr
+                            key={notaAtual.id}
+                            className={index % 2 ? "tr" : ""}
+                        >
                             <Nota
                                 nota={notaAtual}
                                 mostrarBotoes={mostrarBotoes}
