@@ -33,6 +33,16 @@ function Notas() {
                 permissaoExclusao: true,
             },
         });
+        setTextoNota("");
+        setInvalido(true);
+    }
+
+    function excluirNota(id: number) {
+        despachar({ tipo: TipoAcao.EXCLUIR_NOTA, id: id });
+    }
+
+    function alterarNota(nota: ModeloNota) {
+        despachar({ tipo: TipoAcao.ALTERAR_NOTA, nota: nota });
     }
 
     return (
@@ -47,7 +57,7 @@ function Notas() {
                                 rows={4}
                                 cols={41}
                                 maxLength={2000}
-                                placeholder="Digite a nota"
+                                placeholder="Digite a nota até no máximo 2000 caracteres"
                                 value={textoNota}
                                 onChange={aoMudarNota}
                             ></textarea>
@@ -96,6 +106,8 @@ function Notas() {
                                 nota={notaAtual}
                                 mostrarBotoes={mostrarBotoes}
                                 escopoNota={escopoNota}
+                                excluirNota={excluirNota}
+                                alterarNota={alterarNota}
                             />
                         </tr>
                     ))}

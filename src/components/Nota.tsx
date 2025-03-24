@@ -1,13 +1,22 @@
-import { JSX } from "react";
+import { JSX, useReducer } from "react";
 import { ModeloNota } from "../modelo/nota";
+import { notasReducer, TipoAcao } from "../reducers/notasReducer";
 
 export interface NotaProps {
     nota: ModeloNota;
     mostrarBotoes: boolean;
     escopoNota: string;
+    excluirNota: (id: number) => void;
+    alterarNota: (nota: ModeloNota) => void;
 }
 
-function Nota({ nota, mostrarBotoes, escopoNota }: NotaProps) {
+function Nota({
+    nota,
+    mostrarBotoes,
+    escopoNota,
+    excluirNota,
+    alterarNota,
+}: NotaProps) {
     const painelBotoes: JSX.Element[] = [];
 
     if (mostrarBotoes) {
@@ -21,7 +30,12 @@ function Nota({ nota, mostrarBotoes, escopoNota }: NotaProps) {
         if (nota.permissaoExclusao) {
             painelBotoes.push(
                 <td key="excluir">
-                    <button className="btn">Excluir</button>
+                    <button
+                        className="btn"
+                        onClick={() => excluirNota(nota.id ?? 0)}
+                    >
+                        Excluir
+                    </button>
                 </td>
             );
         }

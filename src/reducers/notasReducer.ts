@@ -8,7 +8,7 @@ export enum TipoAcao {
 
 export interface Acao {
     id?: number;
-    nota: ModeloNota;
+    nota?: ModeloNota;
     tipo: TipoAcao;
 }
 
@@ -18,12 +18,12 @@ export function notasReducer(notas: ModeloNota[], acao: Acao) {
             return [
                 ...notas,
                 {
-                    id: acao.nota.id,
-                    nota: acao.nota.nota,
-                    dataRegistro: acao.nota.dataRegistro,
-                    permissaoAlteracao: acao.nota.permissaoAlteracao,
-                    permissaoExclusao: acao.nota.permissaoExclusao,
-                    autor: acao.nota.autor,
+                    id: acao?.nota?.id,
+                    nota: acao.nota?.nota || "",
+                    dataRegistro: acao?.nota?.dataRegistro,
+                    permissaoAlteracao: acao.nota?.permissaoAlteracao,
+                    permissaoExclusao: acao.nota?.permissaoExclusao,
+                    autor: acao?.nota?.autor || "",
                 },
             ];
         case TipoAcao.ALTERAR_NOTA:
@@ -32,7 +32,7 @@ export function notasReducer(notas: ModeloNota[], acao: Acao) {
                 else return acao.nota;
             });
         case TipoAcao.EXCLUIR_NOTA:
-            return notas.filter((nota) => nota.id !== acao.nota.id);
+            return notas.filter((nota) => nota.id !== acao?.id);
     }
     return notas;
 }
