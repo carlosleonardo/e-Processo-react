@@ -1,14 +1,13 @@
-import { ChangeEvent, useEffect, useReducer, useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { ModeloNota } from "../modelo/nota";
 import Nota from "./Nota";
-import { notasRedutor, TipoAcao } from "../redutores/notas-redutor";
 
 function Notas() {
     const [escopoNota, setEscopoNota] = useState("");
     const [mostrarBotoes, setMostrarBotoes] = useState(true);
     const [textoNota, setTextoNota] = useState("");
     const [invalido, setInvalido] = useState(true);
-    const [notas, despachar] = useReducer(notasRedutor, []);
+    const [notas, setNotas] = useState([]);
 
     function aoMudarNota(event: ChangeEvent<HTMLTextAreaElement>) {
         if (event.target.value !== "") {
@@ -17,26 +16,6 @@ function Notas() {
             setInvalido(true);
         }
         setTextoNota(event.target.value);
-    }
-
-    function incluir() {
-        despachar({
-            tipo: TipoAcao.ADICIONAR,
-            nota: {
-                nota: textoNota,
-                autor: "Carlos Leonardo",
-                dataRegistro: new Date(),
-                permissaoAlteracao: false,
-                permissaoExclusao: true,
-            },
-        });
-    }
-
-    function excluirNota(id: number) {
-        despachar({
-            tipo: TipoAcao.EXCLUIR,
-            id: id,
-        });
     }
 
     return (
@@ -51,7 +30,7 @@ function Notas() {
                                 rows={4}
                                 cols={41}
                                 maxLength={2000}
-                                placeholder="Digite a nota"
+                                placeholder="Digite a nota até no máximo 2000 caracteres"
                                 value={textoNota}
                                 onChange={aoMudarNota}
                             ></textarea>
@@ -94,14 +73,12 @@ function Notas() {
                             <td></td>
                         )}
                     </tr>
-
-                    {notas.map((notaAtual: ModeloNota) => (
-                        <tr key={notaAtual.id} className="tr">
+                    <tr>
+                        {notas.map((notaAtual: ModeloNota) => (
                             <Nota
                                 nota={notaAtual}
                                 mostrarBotoes={mostrarBotoes}
                                 escopoNota={escopoNota}
-                                excluirNota={excluirNota}
                             />
                         </tr>
                     ))}
