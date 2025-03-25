@@ -1,15 +1,13 @@
-import { ChangeEvent, useReducer, useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { ModeloNota } from "../modelo/nota";
 import Nota from "./Nota";
-import { notasReducer, TipoAcao } from "../reducers/notasReducer";
-
-let novoId = 1;
 
 function Notas() {
     const [escopoNota, setEscopoNota] = useState("");
     const [mostrarBotoes, setMostrarBotoes] = useState(true);
     const [textoNota, setTextoNota] = useState("");
     const [invalido, setInvalido] = useState(true);
+<<<<<<< HEAD
     const [notas, despachar] = useReducer(notasReducer, []);
     const [editando, setEditando] = useState(false);
     const [notaEditada, setNotaEditada] = useState<ModeloNota>({
@@ -20,6 +18,9 @@ function Notas() {
         permissaoAlteracao: false,
         permissaoExclusao: false,
     });
+=======
+    const [notas, setNotas] = useState([]);
+>>>>>>> ff3747ec79eef0dc87e359c5d08ae0bf539418f2
 
     function aoMudarNota(event: ChangeEvent<HTMLTextAreaElement>) {
         if (event.target.value !== "") {
@@ -31,6 +32,7 @@ function Notas() {
         setNotaEditada({ ...notaEditada, nota: textoNota });
     }
 
+<<<<<<< HEAD
     function incluir() {
         despachar({
             tipo: TipoAcao.ADICIONAR_NOTA,
@@ -68,6 +70,8 @@ function Notas() {
         setTextoNota("");
     }
 
+=======
+>>>>>>> ff3747ec79eef0dc87e359c5d08ae0bf539418f2
     return (
         <div id="main">
             <p className="titulo">Notas de {escopoNota}</p>
@@ -102,6 +106,7 @@ function Notas() {
                 </tbody>
             </table>
             <br />
+            <hr />
             <table style={{ width: "100%" }}>
                 <tbody>
                     <tr>
@@ -124,19 +129,18 @@ function Notas() {
                             <td></td>
                         )}
                     </tr>
-
-                    {notas.map((notaAtual: ModeloNota, index) => (
-                        <tr
-                            key={notaAtual.id}
-                            className={index % 2 ? "tr" : ""}
-                        >
+                    <tr>
+                        {notas.map((notaAtual: ModeloNota) => (
                             <Nota
                                 nota={notaAtual}
                                 mostrarBotoes={mostrarBotoes}
                                 escopoNota={escopoNota}
+<<<<<<< HEAD
                                 excluirNota={excluirNota}
                                 alterarNota={alterarNota}
                                 editando={editando}
+=======
+>>>>>>> ff3747ec79eef0dc87e359c5d08ae0bf539418f2
                             />
                         </tr>
                     ))}
