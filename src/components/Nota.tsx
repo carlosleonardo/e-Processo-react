@@ -5,7 +5,6 @@ export interface NotaProps {
     nota: ModeloNota;
     mostrarBotoes: boolean;
     escopoNota: string;
-<<<<<<< HEAD
     excluirNota: (id: number) => void;
     alterarNota: (nota: ModeloNota) => void;
     editando: boolean;
@@ -20,12 +19,6 @@ function Nota({
     editando,
 }: NotaProps) {
     const painelBotoes: JSX.Element[] = [];
-=======
-}
-
-function Nota({ nota, mostrarBotoes, escopoNota }: NotaProps) {
-    let painelBotoes = "";
->>>>>>> ff3747ec79eef0dc87e359c5d08ae0bf539418f2
 
     if (mostrarBotoes) {
         if (nota.permissaoAlteracao) {
@@ -40,15 +33,20 @@ function Nota({ nota, mostrarBotoes, escopoNota }: NotaProps) {
                     </button>
                 </td>
             );
-        } else painelBotoes = "";
+        }
         if (nota.permissaoExclusao) {
-            painelBotoes += (
-                <td>
-                    <button className="btn">Excluir</button>
+            painelBotoes.push(
+                <td key="excluir">
+                    <button
+                        className="btn"
+                        onClick={() => excluirNota(nota.id ?? 0)}
+                    >
+                        Excluir
+                    </button>
                 </td>
             );
         }
-    } else painelBotoes = "";
+    }
     return (
         <>
             <td>{nota.nota}</td>
