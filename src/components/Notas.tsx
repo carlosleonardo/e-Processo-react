@@ -11,6 +11,15 @@ function Notas() {
     const [textoNota, setTextoNota] = useState("");
     const [invalido, setInvalido] = useState(true);
     const [notas, despachar] = useReducer(notasReducer, []);
+    const [editando, setEditando] = useState(false);
+    const [notaEditada, setNotaEditada] = useState<ModeloNota>({
+        id: 0,
+        nota: "",
+        autor: "",
+        dataRegistro: new Date(),
+        permissaoAlteracao: false,
+        permissaoExclusao: false,
+    });
 
     function aoMudarNota(event: ChangeEvent<HTMLTextAreaElement>) {
         if (event.target.value !== "") {
@@ -19,6 +28,7 @@ function Notas() {
             setInvalido(true);
         }
         setTextoNota(event.target.value);
+        setNotaEditada({ ...notaEditada, nota: textoNota });
     }
 
     function incluir() {
@@ -29,7 +39,7 @@ function Notas() {
                 nota: textoNota,
                 autor: "Carlos Leonardo",
                 dataRegistro: new Date(),
-                permissaoAlteracao: false,
+                permissaoAlteracao: true,
                 permissaoExclusao: true,
             },
         });
@@ -42,7 +52,20 @@ function Notas() {
     }
 
     function alterarNota(nota: ModeloNota) {
-        despachar({ tipo: TipoAcao.ALTERAR_NOTA, nota: nota });
+        setNotaEditada(nota);
+        setEditando(true);
+        setTextoNota(nota.nota);
+        setInvalido(false);
+        setEditando(true);
+    }
+
+    function confirmarAlteracao() {
+        console.log("No confirmarAlteração ", notaEditada);
+        despachar({ tipo: TipoAcao.ALTERAR_NOTA, nota: notaEditada });
+        console.log("Array de notas", notas);
+        setEditando(false);
+        setInvalido(true);
+        setTextoNota("");
     }
 
     return (
@@ -68,9 +91,11 @@ function Notas() {
                             <button
                                 className="btn"
                                 disabled={invalido}
-                                onClick={incluir}
+                                onClick={() =>
+                                    editando ? confirmarAlteracao() : incluir()
+                                }
                             >
-                                Incluir
+                                {editando ? "Alterar" : "Incluir"}
                             </button>
                         </td>
                     </tr>
@@ -111,6 +136,7 @@ function Notas() {
                                 escopoNota={escopoNota}
                                 excluirNota={excluirNota}
                                 alterarNota={alterarNota}
+                                editando={editando}
                             />
                         </tr>
                     ))}

@@ -28,8 +28,15 @@ export function notasReducer(notas: ModeloNota[], acao: Acao) {
             ];
         case TipoAcao.ALTERAR_NOTA:
             return notas.map((nota) => {
-                if (nota.id !== acao.id) return nota;
-                else return acao.nota;
+                console.log("No reducer ", acao.nota);
+                if (nota.id !== acao.nota?.id) return nota;
+                else if (acao.nota) {
+                    return {
+                        ...nota,
+                        ...acao.nota,
+                    };
+                }
+                return nota;
             });
         case TipoAcao.EXCLUIR_NOTA:
             return notas.filter((nota) => nota.id !== acao?.id);
