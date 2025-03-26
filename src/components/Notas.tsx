@@ -22,13 +22,14 @@ function Notas() {
     });
 
     function aoMudarNota(event: ChangeEvent<HTMLTextAreaElement>) {
-        if (event.target.value !== "") {
+        const textoNovo = event.target.value;
+        if (textoNovo !== "") {
             setInvalido(false);
         } else {
             setInvalido(true);
         }
-        setTextoNota(event.target.value);
-        setNotaEditada({ ...notaEditada, nota: textoNota });
+        setTextoNota(textoNovo);
+        setNotaEditada({ ...notaEditada, nota: textoNovo });
     }
 
     function incluir() {
