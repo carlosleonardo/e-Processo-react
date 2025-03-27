@@ -6,6 +6,7 @@ function MenuPrincipal() {
             <nav>
                 <Link to={"/"}>Principal</Link>
                 <Link to={"/notas"}>Notas</Link>
+                <Link to={"/copiar"}>Copiar Documentos</Link>
             </nav>
         </div>
     );
