@@ -9,11 +9,8 @@ export default function CopiaDocumento() {
         const alvo = evento.target;
         const numeroProcessoOriginal = alvo.value;
 
-        // Validar o valor original com o padrão esperado
-        if (
-            numeroProcessoOriginal !== "" &&
-            /^\d{5}\.\d{6}\/\d{4}-\d{2}$/.test(numeroProcessoOriginal)
-        ) {
+        // Verificar a validade usando a API de validação do HTML
+        if (alvo.validity.valid) {
             setInvalido(false);
         } else {
             setInvalido(true);
