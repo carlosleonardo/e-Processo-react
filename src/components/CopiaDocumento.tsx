@@ -3,10 +3,24 @@ import ListaDocumentos from "./ListaDocumentos";
 
 export default function CopiaDocumento() {
     const [numeroProcesso, setNumeroProcesso] = useState("");
+    const [invalido, setInvalido] = useState(true);
 
     function aoMudarNumeroProcesso(evento: ChangeEvent<HTMLInputElement>) {
-        const numeroProcesso = evento.target.value;
-        setNumeroProcesso(numeroProcesso);
+        const alvo = evento.target;
+        const numeroProcessoOriginal = alvo.value;
+
+        // Validar o valor original com o padrão esperado
+        if (
+            numeroProcessoOriginal !== "" &&
+            /^\d{5}\.\d{6}\/\d{4}-\d{2}$/.test(numeroProcessoOriginal)
+        ) {
+            setInvalido(false);
+        } else {
+            setInvalido(true);
+        }
+
+        // Atualizar o estado com o valor original (não formatado)
+        setNumeroProcesso(numeroProcessoOriginal);
     }
 
     return (
@@ -27,6 +41,9 @@ export default function CopiaDocumento() {
                                         type="text"
                                         id="numeroProcesso"
                                         value={numeroProcesso}
+                                        maxLength={20}
+                                        pattern="^\d{5}\.\d{6}/\d{4}-\d{2}$"
+                                        placeholder="Formato ddddd.dddddd/dddd-dd"
                                         onChange={aoMudarNumeroProcesso}
                                     />
                                     &nbsp;&nbsp;
@@ -34,6 +51,7 @@ export default function CopiaDocumento() {
                                         type="submit"
                                         className="btn"
                                         form="formCopiarDocumentos"
+                                        disabled={invalido}
                                     >
                                         Buscar
                                     </button>
