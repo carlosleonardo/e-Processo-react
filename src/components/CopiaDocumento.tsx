@@ -8,16 +8,17 @@ export default function CopiaDocumento() {
     function aoMudarNumeroProcesso(evento: ChangeEvent<HTMLInputElement>) {
         const alvo = evento.target;
         const numeroProcessoOriginal = alvo.value;
+        const numeroProcessoNaoFormatado = numeroProcessoOriginal.slice();
 
         // Verificar a validade usando a API de validação do HTML
-        if (alvo.validity.valid) {
+        if (alvo.validity.valid && numeroProcessoOriginal !== "") {
             setInvalido(false);
         } else {
             setInvalido(true);
         }
 
         // Atualizar o estado com o valor original (não formatado)
-        setNumeroProcesso(numeroProcessoOriginal);
+        setNumeroProcesso(numeroProcessoNaoFormatado);
     }
 
     return (
