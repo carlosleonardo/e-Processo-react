@@ -44,22 +44,24 @@ export default function Documento(props: PropsDocumento) {
                             <img src="img/Diversos/lupa.png" />
                         </a>
                     </td>
-                    {props.documento.codigoDocNPG != 0 && (
-                        <img
-                            style={{ cursor: "pointer" }}
-                            src="img/zip.png"
-                            title="Clique para download"
-                        />
-                    )}
-                    &nbsp;
-                    <a href="#">
-                        <center>
+                    <td style={{ textAlign: "center" }}>
+                        {props.documento.codigoDocNPG != 0 && (
                             <img
-                                src="img/Diversos/palavraChave.png"
-                                title="Palavras-Chave"
+                                style={{ cursor: "pointer" }}
+                                src="img/zip.png"
+                                title="Clique para download"
                             />
-                        </center>
-                    </a>
+                        )}
+                        &nbsp;
+                        <a href="#">
+                            <center>
+                                <img
+                                    src="img/Diversos/palavraChave.png"
+                                    title="Palavras-Chave"
+                                />
+                            </center>
+                        </a>
+                    </td>
                 </>
             );
         } else {
