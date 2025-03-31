@@ -7,7 +7,7 @@ export interface PropsListaDocumentos {
 }
 
 export default function ListaDocumentos(props: PropsListaDocumentos) {
-    const [verificaClasse, setVerificaClasse] = useState(false);
+    const [verificaClasse, setVerificaClasse] = useState(true);
     let existemDocumentos = true;
 
     if (props.documentos.length === 0) {
