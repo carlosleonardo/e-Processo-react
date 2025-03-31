@@ -25,15 +25,17 @@ export default function Documento(props: PropsDocumento) {
             conteudo = (
                 <>
                     {props.documento.codigoDocNPG !== 0 ? (
-                        <td>
+                        <td style={{ textAlign: "center" }}>
                             <input type="checkbox" name="documento" />
                         </td>
                     ) : (
-                        <td>
+                        <td style={{ textAlign: "center" }}>
                             <input type="checkbox" name="documento" />
                         </td>
                     )}
-                    <td>{props.documento.nome}</td>
+                    <td style={{ textAlign: "center" }}>
+                        {props.documento.nome}
+                    </td>
                     <td style={{ textAlign: "center" }}>
                         {props.documento.copiaSimples}
                     </td>
@@ -49,16 +51,15 @@ export default function Documento(props: PropsDocumento) {
                             title="Clique para download"
                         />
                     )}
-                    <td>
-                        <a href="#">
-                            <center>
-                                <img
-                                    src="img/Diversos/palavraChave.png"
-                                    title="Palavras-Chave"
-                                />
-                            </center>
-                        </a>
-                    </td>
+                    &nbsp;
+                    <a href="#">
+                        <center>
+                            <img
+                                src="img/Diversos/palavraChave.png"
+                                title="Palavras-Chave"
+                            />
+                        </center>
+                    </a>
                 </>
             );
         } else {
