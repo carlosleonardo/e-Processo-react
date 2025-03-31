@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { ModeloDocumento } from "../modelo/documento.modelo";
 import Documento from "./Documento";
 
@@ -6,6 +7,7 @@ export interface PropsListaDocumentos {
 }
 
 export default function ListaDocumentos(props: PropsListaDocumentos) {
+    const [verificaClasse, setVerificaClasse] = useState(false);
     let existemDocumentos = true;
 
     if (props.documentos.length === 0) {
@@ -53,7 +55,10 @@ export default function ListaDocumentos(props: PropsListaDocumentos) {
                                 key={documento.id}
                                 className={index % 2 ? "tr" : ""}
                             >
-                                <Documento documento={documento} />
+                                <Documento
+                                    documento={documento}
+                                    verificaClasse={verificaClasse}
+                                />
                             </tr>
                         );
                     })}
