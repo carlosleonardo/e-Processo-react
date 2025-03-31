@@ -7,6 +7,7 @@ export interface PropsBuscarDocumentos {
     nomeEquipeAtual: string;
     nomeAtividadeAtual: string;
     tipoProcesso: string;
+    buscarDocumentos: (numeroProcesso: string) => void;
 }
 export default function BuscarDocumentos(props: PropsBuscarDocumentos) {
     const [numeroProcesso, setNumeroProcesso] = useState("");
@@ -67,6 +68,12 @@ export default function BuscarDocumentos(props: PropsBuscarDocumentos) {
                                     className="btn"
                                     form="formCopiarDocumentos"
                                     disabled={invalido}
+                                    onClick={(evento) => {
+                                        evento.preventDefault();
+                                        props.buscarDocumentos(
+                                            numeroProcessoNaoFormatado
+                                        );
+                                    }}
                                 >
                                     Buscar
                                 </button>
