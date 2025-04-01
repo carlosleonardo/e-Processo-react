@@ -8,8 +8,6 @@ export interface PropsListaDocumentos {
 }
 
 export default function ListaDocumentos(props: PropsListaDocumentos) {
-    const [verificaClasse, setVerificaClasse] = useState(true);
-
     // Calcular o contador fora do map
     const documentosValidos = props.documentos.filter(
         (documento) =>
