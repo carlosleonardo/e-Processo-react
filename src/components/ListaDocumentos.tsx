@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { ModeloDocumento } from "../modelo/documento.modelo";
 import Documento from "./Documento";
+import BotaoCopiar from "./BotaoCopiar";
 
 export interface PropsListaDocumentos {
     documentos: ModeloDocumento[];
@@ -8,6 +9,15 @@ export interface PropsListaDocumentos {
 
 export default function ListaDocumentos(props: PropsListaDocumentos) {
     const [verificaClasse, setVerificaClasse] = useState(true);
+
+    // Calcular o contador fora do map
+    const documentosValidos = props.documentos.filter(
+        (documento) =>
+            documento.nome.toLocaleLowerCase() !== "ficha de identificação" &&
+            documento.nome.toLocaleLowerCase() !== "termo de desentranhamento"
+    );
+    const contador = documentosValidos.length;
+
     let existemDocumentos = true;
 
     if (props.documentos.length === 0) {
@@ -49,21 +59,28 @@ export default function ListaDocumentos(props: PropsListaDocumentos) {
                     </tr>
                 </thead>
                 <tbody>
-                    {props.documentos.map((documento, index) => {
+                    {documentosValidos.map((documento, index) => {
+                        if (
+                            documento.copiaSimples !== "S" &&
+                            documento.copiaSimples !== "N"
+                        ) {
+                            documento.copiaSimples = "NI";
+                        }
                         return (
                             <tr
                                 key={documento.id}
                                 className={index % 2 ? "tr" : ""}
                             >
-                                <Documento
-                                    documento={documento}
-                                    verificaClasse={verificaClasse}
-                                />
+                                <Documento documento={documento} />
                             </tr>
                         );
                     })}
+                    <tr>
+                        <td></td>
+                    </tr>
                 </tbody>
             </table>
+            {contador > 0 && <BotaoCopiar />}
         </>
     );
 }
