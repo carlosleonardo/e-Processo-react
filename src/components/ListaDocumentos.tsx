@@ -48,8 +48,12 @@ export default function ListaDocumentos(props: PropsListaDocumentos) {
         novasCheckboxes[index] = marcado;
         setCheckboxes(novasCheckboxes);
 
-        //if (!marcado) {
-        setMarcarTodos(marcado);
+        // Verifica se todos os checkboxes estão marcados
+        const todosMarcados = novasCheckboxes.every((checkbox) => checkbox);
+
+        // Atualiza o estado de "marcarTodos" com base na verificação
+        setMarcarTodos(todosMarcados);
+
         //}
     }
 
