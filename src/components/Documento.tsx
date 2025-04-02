@@ -3,16 +3,12 @@ import { ModeloDocumento } from "../modelo/documento.modelo";
 
 export interface PropsDocumento {
     documento: ModeloDocumento;
+    marcado: boolean;
+    aoSelecionar: (evento: ChangeEvent<HTMLInputElement>) => void;
 }
 
 export default function Documento(props: PropsDocumento) {
-    const [marcado, setMarcado] = useState(false);
     let conteudo: JSX.Element | null = null;
-
-    function aoClicarDocumento(evento: ChangeEvent<HTMLInputElement>) {
-        console.log("Entrou no documento");
-        setMarcado(evento.target.checked);
-    }
 
     conteudo = (
         <>
@@ -20,8 +16,8 @@ export default function Documento(props: PropsDocumento) {
                 <input
                     type="checkbox"
                     name="documento"
-                    checked={marcado}
-                    onChange={aoClicarDocumento}
+                    checked={props.marcado}
+                    onChange={props.aoSelecionar}
                 />
             </td>
 

@@ -8,15 +8,6 @@ export interface PropsListaDocumentos {
 }
 
 export default function ListaDocumentos(props: PropsListaDocumentos) {
-    // Calcular o contador fora do map
-    const documentosValidos = props.documentos.filter(
-        (documento) =>
-            documento.nome.toLocaleLowerCase() !== "ficha de identificação" &&
-            documento.nome.toLocaleLowerCase() !== "termo de desentranhamento"
-    );
-    const contador = documentosValidos.length;
-    const [marcarTodos, setMarcarTodos] = useState(false);
-
     let existemDocumentos = true;
 
     if (props.documentos.length === 0) {
@@ -27,15 +18,39 @@ export default function ListaDocumentos(props: PropsListaDocumentos) {
             (documento) =>
                 documento.nome.toLocaleLowerCase() === "ficha de identificação"
         );
-        if (index === 1) {
+        if (index > -1 && props.documentos.length === 1) {
             existemDocumentos = false;
         }
     }
     if (!existemDocumentos) {
         alert("Não há documentos juntados ao processo selecionado.");
     }
+    // Calcular o contador fora do map
+    const documentosValidos = props.documentos.filter(
+        (documento) =>
+            documento.nome.toLocaleLowerCase() !== "ficha de identificação" &&
+            documento.nome.toLocaleLowerCase() !== "termo de desentranhamento"
+    );
+    const contador = documentosValidos.length;
+    const [marcarTodos, setMarcarTodos] = useState(false);
+    const [checkboxes, setCheckboxes] = useState(
+        documentosValidos.map(() => false)
+    );
+
     function aoMarcarTodos(evento: ChangeEvent<HTMLInputElement>) {
-        setMarcarTodos(evento.target.checked);
+        const marcado = evento.target.checked;
+        setMarcarTodos(marcado);
+        setCheckboxes(checkboxes.map(() => marcado));
+    }
+
+    function aoMarcarLinha(index: number, marcado: boolean) {
+        const novasCheckboxes = [...checkboxes];
+        novasCheckboxes[index] = marcado;
+        setCheckboxes(novasCheckboxes);
+
+        if (!marcado) {
+            setMarcarTodos(false);
+        }
     }
 
     return (
@@ -66,7 +81,7 @@ export default function ListaDocumentos(props: PropsListaDocumentos) {
                     </tr>
                 </thead>
                 <tbody>
-                    {documentosValidos.map((documento, index) => {
+                    {props.documentos.map((documento, index) => {
                         if (
                             documento.copiaSimples !== "S" &&
                             documento.copiaSimples !== "N"
@@ -78,7 +93,16 @@ export default function ListaDocumentos(props: PropsListaDocumentos) {
                                 key={documento.id}
                                 className={index % 2 ? "tr" : ""}
                             >
-                                <Documento documento={documento} />
+                                <Documento
+                                    documento={documento}
+                                    marcado={checkboxes[index]}
+                                    aoSelecionar={(evento) =>
+                                        aoMarcarLinha(
+                                            index,
+                                            evento.target.checked
+                                        )
+                                    }
+                                />
                             </tr>
                         );
                     })}
