@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { ModeloDocumento } from "../modelo/documento.modelo";
 import Documento from "./Documento";
 import BotaoCopiar from "./BotaoCopiar";
@@ -15,6 +15,7 @@ export default function ListaDocumentos(props: PropsListaDocumentos) {
             documento.nome.toLocaleLowerCase() !== "termo de desentranhamento"
     );
     const contador = documentosValidos.length;
+    const [marcarTodos, setMarcarTodos] = useState(false);
 
     let existemDocumentos = true;
 
@@ -33,13 +34,21 @@ export default function ListaDocumentos(props: PropsListaDocumentos) {
     if (!existemDocumentos) {
         alert("Não há documentos juntados ao processo selecionado.");
     }
+    function aoMarcarTodos(evento: ChangeEvent<HTMLInputElement>) {
+        setMarcarTodos(evento.target.checked);
+    }
+
     return (
         <>
             <table style={{ width: "100%", textAlign: "center" }}>
                 <thead>
                     <tr>
                         <th style={{ textAlign: "left", width: "5%" }}>
-                            <input type="checkbox" />
+                            <input
+                                type="checkbox"
+                                checked={marcarTodos}
+                                onChange={aoMarcarTodos}
+                            />
                             Todos
                         </th>
                         <th style={{ textAlign: "left", width: "25%" }}>

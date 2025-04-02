@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { ModeloDocumento } from "../modelo/documento.modelo";
 
 const listaDocumentos: ModeloDocumento[] = [
     {

@@ -1,4 +1,4 @@
-import { JSX } from "react";
+import { ChangeEvent, JSX, useState } from "react";
 import { ModeloDocumento } from "../modelo/documento.modelo";
 
 export interface PropsDocumento {
@@ -6,12 +6,23 @@ export interface PropsDocumento {
 }
 
 export default function Documento(props: PropsDocumento) {
+    const [marcado, setMarcado] = useState(false);
     let conteudo: JSX.Element | null = null;
+
+    function aoClicarDocumento(evento: ChangeEvent<HTMLInputElement>) {
+        console.log("Entrou no documento");
+        setMarcado(evento.target.checked);
+    }
 
     conteudo = (
         <>
             <td style={{ textAlign: "left" }}>
-                <input type="checkbox" name="documento" />
+                <input
+                    type="checkbox"
+                    name="documento"
+                    checked={marcado}
+                    onChange={aoClicarDocumento}
+                />
             </td>
 
             <td style={{ textAlign: "left" }}>{props.documento.nome}</td>
