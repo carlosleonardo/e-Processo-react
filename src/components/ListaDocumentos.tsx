@@ -48,9 +48,9 @@ export default function ListaDocumentos(props: PropsListaDocumentos) {
         novasCheckboxes[index] = marcado;
         setCheckboxes(novasCheckboxes);
 
-        if (!marcado) {
-            setMarcarTodos(false);
-        }
+        //if (!marcado) {
+        setMarcarTodos(marcado);
+        //}
     }
 
     return (
