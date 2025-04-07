@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, use, useEffect, useRef, useState } from "react";
 
 export interface PropsBuscarDocumentos {
     chaveEquipeAtividade: string;
@@ -14,6 +14,11 @@ export default function BuscarDocumentos(props: PropsBuscarDocumentos) {
     const [invalido, setInvalido] = useState(true);
     const [numeroProcessoNaoFormatado, setNumeroProcessoNaoFormatado] =
         useState("");
+    const refTextoProcesso = useRef<HTMLInputElement>(null);
+
+    useEffect(() => {
+        refTextoProcesso.current?.focus();
+    }, []);
 
     function aoMudarNumeroProcesso(evento: ChangeEvent<HTMLInputElement>) {
         const alvo = evento.target;
@@ -61,6 +66,7 @@ export default function BuscarDocumentos(props: PropsBuscarDocumentos) {
                                     pattern="^\d{5}\.\d{6}/\d{4}-\d{2}$"
                                     placeholder="Formato ddddd.dddddd/dddd-dd"
                                     onChange={aoMudarNumeroProcesso}
+                                    ref={refTextoProcesso}
                                 />
                                 &nbsp;&nbsp;
                                 <button
