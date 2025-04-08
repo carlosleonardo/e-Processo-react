@@ -1,4 +1,4 @@
-import { ChangeEvent, useReducer, useState } from "react";
+import { ChangeEvent, useEffect, useReducer, useRef, useState } from "react";
 import { ModeloNota } from "../modelo/nota";
 import Nota from "./Nota";
 import { notasReducer, TipoAcao } from "../reducers/notasReducer";
@@ -20,6 +20,11 @@ function Notas() {
         permissaoAlteracao: false,
         permissaoExclusao: false,
     });
+    const refNota = useRef<HTMLTextAreaElement>(null);
+
+    useEffect(() => {
+        refNota.current?.focus();
+    }, []);
 
     function aoMudarNota(event: ChangeEvent<HTMLTextAreaElement>) {
         const textoNovo = event.target.value;
@@ -84,6 +89,7 @@ function Notas() {
                                 placeholder="Digite a nota até no máximo 2000 caracteres"
                                 value={textoNota}
                                 onChange={aoMudarNota}
+                                ref={refNota}
                             ></textarea>
                         </td>
                     </tr>
