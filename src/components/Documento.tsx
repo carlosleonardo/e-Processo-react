@@ -13,12 +13,15 @@ export default function Documento(props: PropsDocumento) {
     conteudo = (
         <>
             <td style={{ textAlign: "left" }}>
-                <input
-                    type="checkbox"
-                    name="documento"
-                    checked={props.marcado}
-                    onChange={props.aoSelecionar}
-                />
+                {props.documento.nome.toLocaleLowerCase() !==
+                    "ficha de identificação" && (
+                    <input
+                        type="checkbox"
+                        name="documento"
+                        checked={props.marcado}
+                        onChange={props.aoSelecionar}
+                    />
+                )}
             </td>
 
             <td style={{ textAlign: "left" }}>{props.documento.nome}</td>

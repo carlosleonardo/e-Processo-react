@@ -34,7 +34,7 @@ export default function ListaDocumentos(props: PropsListaDocumentos) {
     const contador = documentosValidos.length;
     const [marcarTodos, setMarcarTodos] = useState(false);
     const [checkboxes, setCheckboxes] = useState(
-        props.documentos.map(() => false)
+        documentosValidos.map(() => false)
     );
 
     function aoMarcarTodos(evento: ChangeEvent<HTMLInputElement>) {
