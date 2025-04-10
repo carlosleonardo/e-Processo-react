@@ -37,6 +37,10 @@ export default function ListaDocumentos(props: PropsListaDocumentos) {
         documentosValidos.map(() => false)
     );
 
+    const documentosSelecionados = documentosValidos.map((documento, index) =>
+        checkboxes[index] ? documento.id : null
+    );
+
     function aoMarcarTodos(evento: ChangeEvent<HTMLInputElement>) {
         const marcado = evento.target.checked;
         setMarcarTodos(marcado);
@@ -53,8 +57,6 @@ export default function ListaDocumentos(props: PropsListaDocumentos) {
 
         // Atualiza o estado de "marcarTodos" com base na verificação
         setMarcarTodos(todosMarcados);
-
-        //}
     }
 
     return (
@@ -115,7 +117,9 @@ export default function ListaDocumentos(props: PropsListaDocumentos) {
                     </tr>
                 </tbody>
             </table>
-            {contador > 0 && <BotaoCopiar />}
+            {contador > 0 && (
+                <BotaoCopiar selecionados={documentosSelecionados} />
+            )}
         </>
     );
 }
